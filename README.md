@@ -1,2 +1,0 @@
-# dawintour
-for dawintour website
