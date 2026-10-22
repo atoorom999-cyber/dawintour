@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dawin Tour - Asian Elephant Sanctuary Chiang Mai</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-emerald-950 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="showCustomerView()">
+                <i class="fa-solid fa-elephant text-emerald-400 text-2xl"></i>
+                <span class="text-xl font-bold tracking-wide">Dawin Tour</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="showAdminViewDirect()" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-gears text-xs"></i> ไปหน้าจัดการ (Admin)
+                </button>
+                <button id="navAdminBtn" onclick="openLoginModal()" class="bg-emerald-800 hover:bg-emerald-700 text-emerald-100 px-3 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-lock text-xs"></i> Admin Login
+                </button>
+                <button id="navLogoutBtn" onclick="logoutAdmin()" class="hidden bg-rose-700 hover:bg-rose-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-right-from-bracket text-xs"></i> ออกจากระบบ
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow">
+        
+        <!-- CUSTOMER VIEW -->
+        <div id="customerView">
+            <!-- Hero Banner -->
+            <div id="heroSection" class="relative bg-stone-900 text-white py-24 px-4 bg-cover bg-center transition-all duration-300" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1581852017103-68accd55093a?auto=format&fit=crop&w=1600&q=80');">
+                <div class="max-w-4xl mx-auto text-center space-y-4">
+                    <span class="bg-emerald-700 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">Ethical Asian Elephant Sanctuary</span>
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight">Dawin Tour Elephant Sanctuary</h1>
+                    <p class="text-lg text-stone-200 max-w-2xl mx-auto font-light">สัมผัสประสบการณ์สุดพิเศษกับช้างเอเชียท่ามกลางผืนป่าฝนธรรมชาติเขียวขจี ณ เชียงใหม่</p>
+                    <div class="pt-4">
+                        <a href="https://wa.me/66843743310" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-medium shadow-lg transition">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> ติดต่อสอบถาม / จองทัวร์ (+66 84 374 3310)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Program List -->
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-emerald-950">โปรแกรมทัวร์ช้างยอดนิยม</h2>
+                    <p class="text-stone-600 mt-2">เลือกโปรแกรมดูแลช้างเอเชียที่คุณสนใจ แล้วกดจองผ่าน WhatsApp ได้ทันที</p>
+                </div>
+
+                <!-- Grid of Tours -->
+                <div id="tourGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic Tours Inserted Here -->
+                </div>
+            </div>
+
+            <!-- How to Book & Contact Info -->
+            <div class="bg-emerald-900 text-emerald-50 py-12 px-4">
+                <div class="max-w-4xl mx-auto text-center space-y-6">
+                    <h3 class="text-2xl font-bold text-white">ขั้นตอนการจองง่ายๆ & ช่องทางติดต่อ</h3>
+                    <p class="text-emerald-100 text-sm max-w-xl mx-auto">เลือกโปรแกรมทัวร์ที่ต้องการ ทักแชตตกลงวันเดินทาง และชำระเงินสะดวกผ่าน Wise Transfer หรือโอนผ่านธนาคาร</p>
+                    
+                    <div class="pt-4 flex flex-col md:flex-row justify-center items-center gap-4">
+                        <a href="https://wa.me/66843743310" target="_blank" class="w-full md:w-auto bg-emerald-500 hover:bg-emerald-400 text-stone-900 font-bold px-8 py-3.5 rounded-xl shadow transition flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-2xl text-emerald-950"></i> WhatsApp: +66 84 374 3310
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN PANEL VIEW -->
+        <div id="adminView" class="hidden max-w-7xl mx-auto px-4 py-8">
+            <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm border border-stone-200">
+                <div>
+                    <h1 class="text-2xl font-bold text-stone-800">ระบบจัดการหลังบ้าน (Admin Panel)</h1>
+                    <p class="text-sm text-stone-500">จัดการโปรแกรมทัวร์ 10 ช่องรายการ และภาพพื้นหลังเว็บไซต์ (ใช้ลิงก์รูปภาพ URL)</p>
+                </div>
+                <button onclick="showCustomerView()" class="bg-stone-200 hover:bg-stone-300 text-stone-700 px-4 py-2 rounded-lg text-sm transition">
+                    <i class="fa-solid fa-eye"></i> ดูหน้าเว็บมุมมองลูกค้า
+                </button>
+            </div>
+
+            <!-- Global Setting: Hero Background Image -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 mb-8">
+                <h2 class="text-lg font-bold text-stone-800 mb-3"><i class="fa-solid fa-image text-emerald-800"></i> จัดการภาพพื้นหลังส่วนหน้าแรก (Hero Background URL)</h2>
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <div class="w-full md:w-1/3 h-28 bg-stone-100 rounded-lg overflow-hidden border">
+                        <img id="currentHeroPreview" src="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">วาง URL รูปภาพพื้นหลัง</label>
+                            <input type="text" id="heroBgUrlInput" placeholder="https://images.unsplash.com/..." class="w-full p-2 border rounded text-sm mb-2">
+                        </div>
+                        <button onclick="saveHeroBackground()" class="bg-emerald-800 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                            บันทึกภาพพื้นหลัง
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tour Program Slots (10 Slots) -->
+            <div class="space-y-6">
+                <h2 class="text-xl font-bold text-stone-800">รายการโปรแกรมทัวร์ (สูงสุด 10 รายการ)</h2>
+                <div id="adminSlotsContainer" class="space-y-4">
+                    <!-- Dynamic 10 Slots rendered here -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-400 py-6 border-t border-stone-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm space-y-2">
+            <p>© 2026 Dawin Tour Elephant Sanctuary Chiang Mai. All rights reserved.</p>
+            <p class="text-xs text-stone-500"><i class="fa-brands fa-whatsapp text-emerald-500"></i> Direct Contact: +66 84 374 3310</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4 relative">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fa-solid fa-lock text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-stone-800">เข้าสู่ระบบ Admin</h3>
+                <p class="text-xs text-stone-500">สำหรับผู้ดูแลระบบ Dawin Tour (รหัส: 225621)</p>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-stone-600 mb-1">รหัสผ่าน (Password)</label>
+                    <input type="password" id="adminPasswordInput" required placeholder="ใส่รหัสผ่าน..." class="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                </div>
+                <div id="loginError" class="text-rose-600 text-xs hidden font-medium text-center">
+                    รหัสผ่านไม่ถูกต้อง!
+                </div>
+                <button type="submit" class="w-full bg-emerald-800 hover:bg-emerald-700 text-white py-2 rounded-lg text-sm font-semibold transition">
+                    เข้าสู่ระบบ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        const defaultTours = [
+            {
+                id: 1,
+                title: "Half Day Asian Elephant Sanctuary",
+                price: "1,800",
+                duration: "ครึ่งวัน (เช้า / บ่าย)",
+                highlights: "ป้อนอาหารช้างเอเชีย, ทำสปาโคลนธรรมชาติ, เล่นน้ำกับช้างในลำธารป่าฝน, อาหารกลางวันบุฟเฟต์",
+                image: "https://images.unsplash.com/photo-1581852017103-68accd55093a?auto=format&fit=crop&w=800&q=80",
+                published: true
+            },
+            {
+                id: 2,
+                title: "Full Day Elephant Care & Jungle Trek",
+                price: "2,800",
+                duration: "เต็มวัน (08:30 - 16:30 น.)",
+                highlights: "เดินป่าชมธรรมชาติเขียวขจีพร้อมช้าง, เรียนรู้วิถีชีวิตช้างเอเชีย, ทำยาสมุนไพรให้ช้าง, อาบน้ำช้าง",
+                image: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=800&q=80",
+                published: true
+            },
+            {
+                id: 3,
+                title: "Exclusive Private Family Tour",
+                price: "4,500",
+                duration: "เต็มวัน (ส่วนตัว)",
+                highlights: "รถรับส่งส่วนตัว, สัมผัสช้างเอเชียอย่างใกล้ชิดเฉพาะครอบครัวคุณ, ช่างภาพถ่ายรูปตลอดทริป",
+                image: "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80",
+                published: true
+            }
+        ];
+
+        for (let i = 4; i <= 10; i++) {
+            defaultTours.push({ id: i, title: "", price: "", duration: "", highlights: "", image: "", published: false });
+        }
+
+        const defaultHeroBg = "https://images.unsplash.com/photo-1581852017103-68accd55093a?auto=format&fit=crop&w=1600&q=80";
+        const whatsappNumber = "66843743310";
+
+        let tours = JSON.parse(localStorage.getItem('dawin_tours_v4')) || defaultTours;
+        let heroBg = localStorage.getItem('dawin_hero_bg_v4') || defaultHeroBg;
+        let isAdminLoggedIn = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyHeroBackground();
+            renderCustomerTours();
+        });
+
+        function applyHeroBackground() {
+            document.getElementById('heroSection').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('${heroBg}')`;
+            document.getElementById('currentHeroPreview').src = heroBg;
+            document.getElementById('heroBgUrlInput').value = heroBg;
+        }
+
+        function renderCustomerTours() {
+            const grid = document.getElementById('tourGrid');
+            grid.innerHTML = '';
+            const publishedTours = tours.filter(t => t.published && t.title.trim() !== "");
+
+            if (publishedTours.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-stone-500">ยังไม่มีรายการโปรแกรมทัวร์เปิดแสดงในขณะนี้</div>`;
+                return;
+            }
+
+            publishedTours.forEach(tour => {
+                const imgUrl = tour.image || 'https://images.unsplash.com/photo-1581852017103-68accd55093a?auto=format&fit=crop&w=800&q=80';
+                const whatsappMessage = encodeURIComponent(`Hello Dawin Tour! I am interested in booking: ${tour.title} (Price: ${tour.price} THB). Please provide more information.`);
+                const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl shadow-sm hover:shadow-md transition border border-stone-200 overflow-hidden flex flex-col";
+                card.innerHTML = `
+                    <div class="relative h-52 bg-stone-200 overflow-hidden">
+                        <img src="${imgUrl}" class="w-full h-full object-cover transition hover:scale-105 duration-300" onerror="this.src='https://images.unsplash.com/photo-1581852017103-68accd55093a?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 right-3 bg-emerald-900 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            ${tour.price ? tour.price + ' THB' : 'Contact us'}
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-stone-800 mb-1">${tour.title}</h3>
+                            <p class="text-xs text-emerald-700 font-semibold mb-3"><i class="fa-regular fa-clock"></i> ${tour.duration || 'ไม่ระบุเวลา'}</p>
+                            <p class="text-stone-600 text-sm leading-relaxed">${tour.highlights || 'ไม่มีรายละเอียดเพิ่มเติม'}</p>
+                        </div>
+                        <a href="${whatsappLink}" target="_blank" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Book via WhatsApp
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function showCustomerView() {
+            document.getElementById('customerView').classList.remove('hidden');
+            document.getElementById('adminView').classList.add('hidden');
+        }
+
+        function showAdminViewDirect() {
+            if (!isAdminLoggedIn) {
+                openLoginModal();
+            } else {
+                showAdminView();
+            }
+        }
+
+        function showAdminView() {
+            document.getElementById('customerView').classList.add('hidden');
+            document.getElementById('adminView').classList.remove('hidden');
+            renderAdminSlots();
+        }
+
+        function openLoginModal() {
+            if (isAdminLoggedIn) {
+                showAdminView();
+            } else {
+                document.getElementById('loginModal').classList.remove('hidden');
+            }
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('loginError').classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === "225621") {
+                isAdminLoggedIn = true;
+                closeLoginModal();
+                document.getElementById('navAdminBtn').classList.add('hidden');
+                document.getElementById('navLogoutBtn').classList.remove('hidden');
+                showAdminView();
+            } else {
+                document.getElementById('loginError').classList.add('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('navAdminBtn').classList.remove('hidden');
+            document.getElementById('navLogoutBtn').classList.add('hidden');
+            showCustomerView();
+        }
+
+        function renderAdminSlots() {
+            const container = document.getElementById('adminSlotsContainer');
+            container.innerHTML = '';
+
+            tours.forEach((tour, index) => {
+                const slotNum = index + 1;
+                const isFilled = tour.title.trim() !== "";
+
+                const slotEl = document.createElement('div');
+                slotEl.className = "bg-white p-5 rounded-xl shadow-sm border border-stone-200 space-y-4";
+                slotEl.innerHTML = `
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 bg-emerald-900 text-white rounded-full flex items-center justify-center font-bold text-sm">${slotNum}</span>
+                            <span class="font-bold text-stone-700">โปรแกรมที่ ${slotNum}</span>
+                            ${isFilled ? '<span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">มีข้อมูล</span>' : '<span class="text-xs bg-stone-100 text-stone-500 px-2 py-0.5 rounded">ว่าง</span>'}
+                        </div>
+                        <label class="flex items-center cursor-pointer gap-2">
+                            <input type="checkbox" id="published_${tour.id}" ${tour.published ? 'checked' : ''} class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="text-sm font-semibold ${tour.published ? 'text-emerald-700' : 'text-stone-400'}">เปิดแสดงหน้าแรก</span>
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-stone-600 mb-1">ชื่อโปรแกรมทัวร์</label>
+                                <input type="text" id="title_${tour.id}" value="${tour.title}" placeholder="เช่น Half Day Elephant Sanctuary" class="w-full p-2 border rounded text-sm">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-semibold text-stone-600 mb-1">ราคา (บาท)</label>
+                                    <input type="text" id="price_${tour.id}" value="${tour.price}" placeholder="1,800" class="w-full p-2 border rounded text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-stone-600 mb-1">ระยะเวลา</label>
+                                    <input type="text" id="duration_${tour.id}" value="${tour.duration}" placeholder="ครึ่งวัน / เต็มวัน" class="w-full p-2 border rounded text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-stone-600 mb-1">ไฮไลท์ / รายละเอียดกิจกรรม</label>
+                                <textarea id="highlights_${tour.id}" rows="2" placeholder="รายละเอียดกิจกรรมสั้นๆ..." class="w-full p-2 border rounded text-sm">${tour.highlights}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-semibold text-stone-600">รูปภาพโปรแกรม (Image URL)</label>
+                            <div class="h-28 bg-stone-100 rounded border overflow-hidden relative">
+                                <img id="preview_${tour.id}" src="${tour.image || 'https://images.unsplash.com/photo-1581852017103-68accd55093a?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover">
+                            </div>
+                            <input type="text" id="imageUrl_${tour.id}" value="${tour.image}" oninput="document.getElementById('preview_${tour.id}').src = this.value" placeholder="วางลิงก์รูปภาพ (https://...)" class="w-full p-2 border rounded text-xs">
+                        </div>
+                    </div>
+
+                    <div class="text-right pt-2">
+                        <button onclick="saveSlot(${tour.id})" class="bg-emerald-800 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg text-sm font-medium transition">
+                            <i class="fa-solid fa-floppy-disk"></i> บันทึกโปรแกรมที่ ${slotNum}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(slotEl);
+            });
+        }
+
+        function saveSlot(tourId) {
+            const index = tours.findIndex(t => t.id === tourId);
+            if (index !== -1) {
+                const title = document.getElementById(`title_${tourId}`).value;
+                const price = document.getElementById(`price_${tourId}`).value;
+                const duration = document.getElementById(`duration_${tourId}`).value;
+                const highlights = document.getElementById(`highlights_${tourId}`).value;
+                const published = document.getElementById(`published_${tourId}`).checked;
+                const image = document.getElementById(`imageUrl_${tourId}`).value.trim();
+
+                tours[index] = { id: tourId, title, price, duration, highlights, image, published };
+                localStorage.setItem('dawin_tours_v4', JSON.stringify(tours));
+                alert(`บันทึกข้อมูลโปรแกรมที่ ${tourId} เรียบร้อยแล้ว!`);
+                renderCustomerTours();
+                renderAdminSlots();
+            }
+        }
+
+        function saveHeroBackground() {
+            const urlInput = document.getElementById('heroBgUrlInput').value.trim();
+            if (urlInput) {
+                heroBg = urlInput;
+                localStorage.setItem('dawin_hero_bg_v4', heroBg);
+                applyHeroBackground();
+                alert('บันทึกภาพพื้นหลังเรียบร้อยแล้ว!');
+            } else {
+                alert('กรุณากรอกลิงก์รูปภาพพื้นหลังครับ');
+            }
+        }
+    </script>
+</body>
+</html>
